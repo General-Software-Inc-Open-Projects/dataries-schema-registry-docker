@@ -19,8 +19,8 @@ USER dataries
 
 WORKDIR ${SCHEMA_REGISTRY_HOME}
 
-COPY --chown=dataries:dataries dataries-schema-registry-connector-1.0.0.jar \
-                                                    ${SCHEMA_REGISTRY_HOME}
+COPY --chown=dataries:dataries $(SCHEMA_REGISTRY_JAR) \
+                               ${SCHEMA_REGISTRY_HOME}
 
 COPY --chown=dataries:dataries healthcheck.sh entrypoint.sh /usr/bin/
 
