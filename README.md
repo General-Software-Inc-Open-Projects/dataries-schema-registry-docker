@@ -16,8 +16,7 @@ This image was created with the intention of achieving an easier deployment of S
 
 ## Persist data
 
-## Connect to Zookeeper from the command line client
-
+## Connect to Schema Registry from the command line client
 
 ## Check logs
 
