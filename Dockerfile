@@ -1,15 +1,17 @@
+FROM maven:3-jdk-8 as maven
+
+ARG ARTIFACT_VERSION=1.0.0
+
+RUN mvn dependency:get -DrepoUrl=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector \
+    -Dartifact=net.gsi.connectors:dataries-schema-registry-connector:${ARTIFACT_VERSION} \
+    -DoutputDirectory=. 
+
 FROM openjdk:11-jre-slim
 LABEL version="gsi"
 LABEL maintainer="Dania Rojas<dania.rojas@generalsoftwareinc.com>"
 
 
-ARG ARTIFACT_VERSION=1.0.0
-
 ENV SCHEMA_REGISTRY_HOME=/opt/schema-registry
-
-RUN mvn dependency:get -DrepoUrl=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector \
-    -Dartifact=net.gsi.connectors:dataries-schema-registry-connector:${ARTIFACT_VERSION} \
-    -DoutputDirectory=. 
 
 RUN useradd -lrmU dataries
 
@@ -23,7 +25,7 @@ USER dataries
 
 WORKDIR ${SCHEMA_REGISTRY_HOME}
 
-COPY --chown=dataries:dataries dataries-schema-registry-connector-1.0.0.jar \
+COPY --chown=dataries:dataries --from=maven dataries-schema-registry-connector-1.0.0.jar \
                                ${SCHEMA_REGISTRY_HOME}
 
 COPY --chown=dataries:dataries healthcheck.sh entrypoint.sh /usr/bin/
