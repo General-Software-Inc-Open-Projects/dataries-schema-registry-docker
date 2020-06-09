@@ -10,7 +10,7 @@ ENV SCHEMA_REGISTRY_HOME=/opt/schema-registry
 RUN mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:get \
     -DrepoUrl=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector \
     -Dartifact=net.gsi.connectors:dataries-schema-registry-connector:${ARTIFACT_VERSION} \
-    -DoutputDirectory=. \
+    -DoutputDirectory=. 
 
 RUN useradd -lrmU dataries
 
