@@ -5,7 +5,7 @@ LABEL maintainer="Dania Rojas<dania.rojas@generalsoftwareinc.com>"
 
 ENV SCHEMA_REGISTRY_HOME=/opt/schema-registry
 
-ENV SCHEMA_REGISTRY_JAR=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector/net/gsi/components/dataries-schema-registry-connector-1.0.0.jar
+ENV SCHEMA_REGISTRY_JAR=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector/net/gsi/components/dataries-schema-registry-connector/1.0.0/dataries-schema-registry-connector-1.0.0.jar
 
 RUN useradd -lrmU dataries
 
