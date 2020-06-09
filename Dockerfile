@@ -3,9 +3,14 @@ LABEL version="gsi"
 LABEL maintainer="Dania Rojas<dania.rojas@generalsoftwareinc.com>"
 
 
+ARG ARTIFACT_VERSION=1.0.0
+
 ENV SCHEMA_REGISTRY_HOME=/opt/schema-registry
 
-ENV SCHEMA_REGISTRY_JAR=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector/net/gsi/connectors/dataries-schema-registry-connector/1.0.0/dataries-schema-registry-connector-1.0.0.jar
+RUN mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:get \
+    -DrepoUrl=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector \
+    -Dartifact=net.gsi.connectors:dataries-schema-registry-connector:${ARTIFACT_VERSION} \
+    -DoutputDirectory=. \
 
 RUN useradd -lrmU dataries
 
@@ -19,7 +24,7 @@ USER dataries
 
 WORKDIR ${SCHEMA_REGISTRY_HOME}
 
-COPY --chown=dataries:dataries $(SCHEMA_REGISTRY_JAR) \
+COPY --chown=dataries:dataries dataries-schema-registry-connector-1.0.0.jar \
                                ${SCHEMA_REGISTRY_HOME}
 
 COPY --chown=dataries:dataries healthcheck.sh entrypoint.sh /usr/bin/
