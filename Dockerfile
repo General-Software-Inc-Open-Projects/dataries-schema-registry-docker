@@ -1,10 +1,13 @@
-FROM maven:3-jdk-11 as maven
+FROM maven:3-jdk-8 as maven
 
+ARG ARTIFACT_NAME=net.gsi.connectors:dataries-schema-registry-connector
 ARG ARTIFACT_VERSION=1.0.0
+ARG GITHUB_TOKEN
 
-RUN mvn dependency:get -DrepoUrl=https://maven.pkg.github.com/general-software-inc-open-projects/dataries-schema-registry-connector \
-    -Dartifact=net.gsi.connectors:dataries-schema-registry-connector:${ARTIFACT_VERSION} \
-    -DoutputDirectory=. 
+RUN sed -i "s|GITHUB_TOKEN|$GITHUB_TOKEN|" settings.xml && \
+    mvn dependency:copy -Dartifact=${ARTIFACT_NAME}:${ARTIFACT_VERSION} \
+                        -DoutputDirectory=. \
+                        -gs settings.xml
 
 ENV SCHEMA_REGISTRY_HOME=/opt/schema-registry
 COPY dataries-schema-registry-connector-1.0.0.jar \
