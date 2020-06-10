@@ -4,10 +4,14 @@ ARG ARTIFACT_NAME=net.gsi.connectors:dataries-schema-registry-connector
 ARG ARTIFACT_VERSION=1.0.0
 ARG GITHUB_TOKEN
 
+COPY settings.xml ./settings.xml
 RUN ls -lt
 
-RUN sed -i "s|GITHUB_TOKEN|$GITHUB_TOKEN|" settings.xml && \
-    mvn dependency:copy -Dartifact=${ARTIFACT_NAME}:${ARTIFACT_VERSION} \
+RUN sed -i "s|GITHUB_TOKEN|$GITHUB_TOKEN|" settings.xml
+
+RUN cat settings.xml
+
+RUN mvn dependency:copy -Dartifact=${ARTIFACT_NAME}:${ARTIFACT_VERSION} \
                         -DoutputDirectory=. \
                         -gs settings.xml
 
