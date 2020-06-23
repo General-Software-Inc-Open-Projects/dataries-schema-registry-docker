@@ -1,4 +1,4 @@
-FROM maven:3-jdk-11 as maven
+FROM maven:3-jdk-8 as maven
 
 ARG ARTIFACT_NAME=net.gsi.connectors:dataries-schema-registry-connector
 ARG ARTIFACT_VERSION=1.0.0
@@ -15,7 +15,7 @@ RUN mvn dependency:copy -Dartifact=${ARTIFACT_NAME}:${ARTIFACT_VERSION} \
                         -DoutputDirectory=. \
                         -gs settings.xml
 
-FROM openjdk:11-jre-slim
+FROM openjdk:8-jre-slim
 LABEL version="gsi"
 LABEL maintainer="Dania Rojas<dania.rojas@generalsoftwareinc.com>"
 
