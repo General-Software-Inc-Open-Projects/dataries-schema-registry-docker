@@ -1,6 +1,6 @@
 # Description
 
-This image was created with the intention of achieving an easier deployment of Schema Registry component on Docker.
+This image was created with the intention of achieving an easier deployment of Schema Registry component on Docker, to see the image, in Docker Hub, follow this [link](https://hub.docker.com/repository/docker/gsiopen/schema-registry).
 
 # Quick reference
 
